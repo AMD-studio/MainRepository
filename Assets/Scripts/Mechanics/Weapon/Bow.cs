@@ -46,7 +46,7 @@ public class Bow : MonoBehaviour
     bool canFireArrow = false;
 
     AudioSource bowAudio;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +56,7 @@ public class Bow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void PickArrow()
@@ -116,20 +116,22 @@ public class Bow : MonoBehaviour
         bowAudio.PlayOneShot(bowSettings.pullStringAudio);
     }
 
-    public void Fire(Vector3 hitPoint)
+    public void Fire(Vector3 direction)
     {
         if (bowSettings.arrowCount < 1)
             return;
 
         bowAudio.PlayOneShot(bowSettings.releaseStringAudio);
-        Vector3 dir = hitPoint - bowSettings.arrowPos.position;
+
         currentArrow = Instantiate(
-            bowSettings.arrowPrefab, 
-            bowSettings.arrowPos.position, 
+            bowSettings.arrowPrefab,
+            bowSettings.arrowPos.position,
             bowSettings.arrowPos.rotation);
 
-        currentArrow.AddForce(dir * bowSettings.arrowForce, ForceMode.Force);
+        // Применяем силу в переданном направлении
+        currentArrow.AddForce(direction * bowSettings.arrowForce, ForceMode.Force);
 
         bowSettings.arrowCount -= 1;
     }
+
 }

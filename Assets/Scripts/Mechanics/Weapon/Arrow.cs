@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class Arrow : MonoBehaviour
     Rigidbody rb;
     BoxCollider bx;
     bool disableRotation;
-    public float destroyTime = 10f;
+    public float destroyTime = 20f;
     AudioSource arrowAudio;
 
     // Start is called before the first frame update
@@ -16,6 +17,7 @@ public class Arrow : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         bx = GetComponent<BoxCollider>();
         arrowAudio = GetComponent<AudioSource>();
+        gameObject.tag = "Arrow";
 
         Destroy(this.gameObject, destroyTime);
     }
@@ -34,5 +36,10 @@ public class Arrow : MonoBehaviour
             rb.isKinematic = true;
             bx.isTrigger = true;
         } 
+    }
+
+    internal float GetDamage()
+    {
+        return 100f;
     }
 }

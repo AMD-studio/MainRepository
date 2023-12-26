@@ -18,13 +18,18 @@ namespace Assets.Scripts.Mechanics.EntityModule
         public float sightRange = 45f;
         public float radius = 10.0f;
 
+        public float health = 100f;
+
         private NavMeshAgent navAgent;
         private Transform thisTransform;
         private SphereCollider sphereCollider;
         public Vector3 LastKnowSighting;
         private int waypointIndex = 0;
         public bool canSeePlayer;
-        public Animator animator;
+        [HideInInspector] Animator animator;
+        public bool IsDead = false;
+        public GameObject prefab;
+        public GameObject DiePrefab;
 
         private void Awake()
         {
@@ -46,15 +51,17 @@ namespace Assets.Scripts.Mechanics.EntityModule
             {
                 NextWayPoint();
             }
-
+            Die();
             UpdateAnimatorSpeed();
-
 
             if (navAgent.remainingDistance < navAgent.stoppingDistance)
             {
-                Vector3 relPos = player.position - transform.position;
-                Quaternion rotation = Quaternion.LookRotation(relPos);
+                Vector3 directionToPlayer = player.position - thisTransform.position;
+                Quaternion rotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = rotation;
+
+                Debug.Log("Player is within stopping distance. Rotating towards player.");
+
                 animator.SetBool("Atack", true);
             }
             else
@@ -63,12 +70,43 @@ namespace Assets.Scripts.Mechanics.EntityModule
             }
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Arrow"))
+            {   
+                if (collision.gameObject.TryGetComponent<Arrow>(out var arrow))
+                {
+                    float damage = arrow.GetDamage();
+
+                    Debug.Log($"Applying damage {damage} to target.");
+
+                    health -= damage;
+                }
+                else
+                {
+                    Debug.LogWarning("Arrow component not found on collided object.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Collision with object not tagged as 'Arrow'.");
+            }
+        }
+
+        private void Die()
+        {
+            if (health <= 0)
+            {
+                Destroy(prefab);
+                Instantiate(DiePrefab, thisTransform.position, thisTransform.rotation);
+            }
+        }
+
         private void UpdateAnimatorSpeed()
         {
             float currentSpeed = navAgent.velocity.magnitude;
             float maxSpeed = navAgent.speed;
-            float normalizedSpeed = Mathf.Clamp(currentSpeed, 0f, maxSpeed) / Vector3.Distance(player.position, thisTransform.position) * Time.deltaTime;
-            Debug.Log(normalizedSpeed);
+            float normalizedSpeed = Mathf.Clamp01(currentSpeed / maxSpeed);
             animator.SetFloat("Speed", normalizedSpeed);
         }
 
@@ -85,7 +123,6 @@ namespace Assets.Scripts.Mechanics.EntityModule
                 return;
 
             SetNextWaypointDestination();
-            Debug.Log("Moving to next waypoint: " + navAgent.destination);
         }
 
         private void SetNextWaypointDestination()
@@ -105,7 +142,6 @@ namespace Assets.Scripts.Mechanics.EntityModule
         private void OnTriggerExit()
         {
             canSeePlayer = false;
-            Debug.Log("Player is out of sight.");
         }
 
         private bool EnemyFieldOfView()
@@ -113,7 +149,6 @@ namespace Assets.Scripts.Mechanics.EntityModule
             Vector3 directionToPlayer = player.position - eyePoint.position;
             float angle = Vector3.Angle(eyePoint.forward, directionToPlayer);
 
-            Debug.Log("Angle to player: " + angle);
             return angle <= sightRange;
         }
 
@@ -128,7 +163,6 @@ namespace Assets.Scripts.Mechanics.EntityModule
 
                 if (hit.transform.CompareTag("Player"))
                 {
-                    Debug.Log("Player is in view. Last sighting: " + UpdateLastSighting(player.transform.position));
                     return true;
                 }
             }

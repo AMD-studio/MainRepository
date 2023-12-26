@@ -12,11 +12,12 @@ TagManager:
   - Pole
   - Item
   - Arrow
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
   - 

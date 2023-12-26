@@ -77,12 +77,12 @@ namespace Climbing
         public float gravityValue = 1.2f;
 
         public Bow bowScript;
-      
+
 
         private void Awake()
         {
             state = new ThirdPersonState();
- 
+
             characterInput = GetComponent<InputCharacterController>();
             characterMovement = GetComponent<MovementCharacterController>();
             characterAnimation = GetComponent<AnimationCharacterController>();
@@ -102,6 +102,8 @@ namespace Climbing
 
         void Update()
         {
+            Debug.DrawRay(transform.position, transform.forward * 5f, Color.blue);
+
             //Detect if Player is on Ground
             state.isGrounded = OnGround();
 
@@ -149,12 +151,15 @@ namespace Climbing
                     characterAnimation.CharacterFireArrow();
                     if (state.hitDetected)
                     {
-                        bowScript.Fire(hit.point);
+                        Vector3 dir = transform.forward;
+                        bowScript.Fire(dir);
                     }
                     else
                     {
-                        bowScript.Fire(ray.GetPoint(300f));
+                        Vector3 dir = transform.forward * 300f;
+                        bowScript.Fire(dir);
                     }
+
                 }
             }
             else
@@ -167,30 +172,57 @@ namespace Climbing
             }
         }
 
-
-        void RotateToCamView()
+        void RotateToNearestEnemy()
         {
-            Vector3 camCenterPos = camCenter.position;
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-            Vector3 lookPoint = camCenterPos + (camCenter.forward * lookDIstance);
-            Vector3 direction = lookPoint - transform.position;
+            if (enemies.Length == 0)
+            {
+                // Если нет врагов, не поворачиваем персонажа
+                return;
+            }
 
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            lookRotation.x = 0;
-            lookRotation.z = 0;
+            GameObject nearestEnemy = GetNearestEnemy(enemies);
 
-            Quaternion finalRotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * lookSpeed);
-            transform.rotation = finalRotation;
+            if (nearestEnemy != null)
+            {
+                Vector3 enemyDirection = nearestEnemy.transform.position - transform.position;
+                Quaternion lookRotation = Quaternion.LookRotation(enemyDirection);
+                lookRotation.x = 0;
+                lookRotation.z = 0;
+
+                Quaternion finalRotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * lookSpeed);
+                transform.rotation = finalRotation;
+            }
+        }
+
+        GameObject GetNearestEnemy(GameObject[] enemies)
+        {
+            GameObject nearestEnemy = null;
+            float nearestDistance = float.MaxValue;
+
+            foreach (GameObject enemy in enemies)
+            {
+                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestEnemy = enemy;
+                }
+            }
+
+            return nearestEnemy;
         }
 
         void RotateCharacterSpine()
         {
-            RotateToCamView();
+            RotateToNearestEnemy();
             spine.LookAt(ray.GetPoint(50));
             spine.Rotate(spineOffset);
         }
 
-        //Does the aiming and sends a raycast to a target
+        // Does the aiming and sends a raycast to a target
         void Aim()
         {
             Vector3 camPosition = mainCamera.position;
@@ -198,17 +230,63 @@ namespace Climbing
             RotateCharacterSpine();
 
             ray = new Ray(camPosition, dir);
-            if (Physics.Raycast(ray, out hit, 500f, aimLayers))
+            DebugDrawAimSphere(ray.origin, 20f, Color.cyan);
+
+            // Вместо Physics.Raycast используем SphereCast, чтобы найти противников в определенном радиусе
+            RaycastHit[] hits = Physics.SphereCastAll(ray, 20f, 20f, aimLayers);
+
+            if (hits.Length > 0)
             {
+                // Находим ближайший противник из всех попавших в сферу
                 state.hitDetected = true;
-                Debug.DrawLine(ray.origin, hit.point, Color.green);
-                bowScript.ShowCrosshair(hit.point);
+                GameObject nearestEnemy = GetNearestEnemy(hits);
+                Debug.DrawLine(ray.origin, nearestEnemy.transform.position, Color.green);
+                bowScript.ShowCrosshair(nearestEnemy.transform.position);
             }
             else
             {
                 state.hitDetected = false;
                 bowScript.RemoveCrosshair();
             }
+        }
+        void DebugDrawAimSphere(Vector3 center, float radius, Color color)
+        {
+            Debug.DrawRay(center + Vector3.up * radius, Vector3.forward * radius, color);
+            Debug.DrawRay(center - Vector3.up * radius, Vector3.forward * radius, color);
+            Debug.DrawRay(center - Vector3.right * radius, Vector3.up * radius * 2, color);
+            Debug.DrawRay(center + Vector3.right * radius, Vector3.up * radius * 2, color);
+            Debug.DrawRay(center - Vector3.forward * radius, Vector3.right * radius * 2, color);
+            Debug.DrawRay(center + Vector3.forward * radius, Vector3.right * radius * 2, color);
+
+            float angleStep = 10f;
+            for (float angle = 0; angle < 360; angle += angleStep)
+            {
+                float x = center.x + Mathf.Cos(angle * Mathf.Deg2Rad) * radius;
+                float y = center.y + Mathf.Sin(angle * Mathf.Deg2Rad) * radius;
+                Vector3 point = new Vector3(x, y, center.z);
+                Debug.DrawLine(point, point + Vector3.forward * radius, color);
+            }
+        }
+
+
+        // Определяем ближайший объект из массива RaycastHit
+        GameObject GetNearestEnemy(RaycastHit[] hits)
+        {
+            GameObject nearestEnemy = null;
+            float nearestDistance = float.MaxValue;
+
+            foreach (RaycastHit hit in hits)
+            {
+                float distance = hit.distance;
+
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestEnemy = hit.collider.gameObject;
+                }
+            }
+
+            return nearestEnemy;
         }
 
         public void Pull()
@@ -335,7 +413,7 @@ namespace Climbing
             characterMovement.EnableFeetIK();
             characterMovement.ApplyGravity();
             characterMovement.stopMotion = false;
-            state.isDummy = false; 
+            state.isDummy = false;
             state.isAllowMovement = true;
         }
     }

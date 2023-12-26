@@ -4,9 +4,9 @@ using UnityEngine.AI;
 using UnityEngine;
 
 namespace Assets.Scripts.Mechanics.EntityModule
-{ 
+{
 
-[RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(NavMeshAgent))]
 
     public class EnemyAI : MonoBehaviour
     {
@@ -48,11 +48,13 @@ namespace Assets.Scripts.Mechanics.EntityModule
         private int wayPointIndex = 0;
         private EnemySight.Sensitivity sensitivty;
         private EnemySight enemySight;
+        private Animator animator;
 
         void Awake()
         {
             navAgent = GetComponent<NavMeshAgent>();
             enemySight = GetComponent<EnemySight>();
+            animator = GetComponent<Animator>();
         }
 
         // Use this for initialization
@@ -64,18 +66,19 @@ namespace Assets.Scripts.Mechanics.EntityModule
         // Update is called once per frame
         void Update()
         {
+
         }
 
-        [Obsolete]
+
         IEnumerator EnemyPatrol()
         {
             while (currentState == EnemyState.Patrol)
             {
                 navAgent.stoppingDistance = 0;
-                // print("Patrolling");
+                //print("Patrolling");
 
-                // do not see through the obstacles
-                // sensitivty = EnemySight.Sensitivity.Strict;
+                //do not see through the obstacles
+                sensitivty = EnemySight.Sensitivity.Strict;
 
                 // Chase state to patrol state
                 navAgent.Resume();
@@ -94,17 +97,25 @@ namespace Assets.Scripts.Mechanics.EntityModule
 
                     // Move the Navmesh agent per Waypoint by index number
                     navAgent.destination = wayPoints[wayPointIndex].position;
+                    // Increase index number 
                     wayPointIndex = (wayPointIndex + 1) % wayPoints.Length;
 
-                    // Add a random pause between 0.5 and 2 seconds
-                    yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 2f));
-                }
+                    //print(enemySight.canSeePlayer);
 
+                    // -----> GO TO CHASE STATE IF TARGET IS SEEN <------- //
+                    /*
+                    if(enemySight.canSeePlayer)	{
+                        print(enemySight.canSeePlayer);
+                        break;
+                    }*/
+
+
+                }
                 if (enemySight.canSeePlayer)
                 {
-                    currentState = EnemyState.Chase;
-                }
+                    CurrentState = EnemyState.Chase;
 
+                }
                 yield return null;
             }
         }

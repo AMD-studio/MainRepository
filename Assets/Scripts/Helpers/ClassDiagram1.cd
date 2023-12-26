@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Climbing.AnimationCharacterController">
+    <Position X="3.75" Y="12" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BASAEgAQUCAAAAGAABBAAAgAAIQIQAAIAggACoAAAII=</HashCode>
+      <FileName>Assets\Scripts\Controllers\AnimationCharacterController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.CameraController">
+    <Position X="21.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAACAAAAABIAAQAAAAQAAAAAAAQQAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\CameraController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.ClimbController">
+    <Position X="6.5" Y="12" Width="2.25" />
+    <NestedTypes>
+      <Enum Name="Climbing.ClimbController.ClimbState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Controllers\ClimbController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QUAPABAoxCAAIFACKASgASFQIQhICRiBAojmMIoIBBE=</HashCode>
+      <FileName>Assets\Scripts\Controllers\ClimbController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.DetectionCharacterController">
+    <Position X="25.25" Y="3.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAQAAAAAIAAAgAABAAgAESEwAAICQCBAAAgA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\DetectionCharacterController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.InputCharacterController">
+    <Position X="14.25" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAgAAAAAEAAAAEAAAAAAAAAAAACAIIAAAIAAACEA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\InputCharacterController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.JumpPredictionController">
+    <Position X="13.75" Y="12" Width="2" />
+    <TypeIdentifier>
+      <HashCode>SAAUAQAAAGAQAAmAIAAgiggAAEAAgAAAAAAgAIAAAgA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\JumpPredictionController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.MovementCharacterController">
+    <Position X="9.25" Y="12" Width="2.25" />
+    <NestedTypes>
+      <Delegate Name="Climbing.MovementCharacterController.OnLandedDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Controllers\MovementCharacterController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Climbing.MovementCharacterController.OnFallDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Controllers\MovementCharacterController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>iLQpAEAEgiIACJEkIAQgCghAAFoiBE4BAaYEQACgAgg=</HashCode>
+      <FileName>Assets\Scripts\Controllers\MovementCharacterController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.ThirdPersonController">
+    <Position X="16.25" Y="12" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQOMlKAAGIAAEEAAAAEECEAAAACEQBKIAAAIIIgBEI=</HashCode>
+      <FileName>Assets\Scripts\Controllers\ThirdPersonController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.VaultingController">
+    <Position X="11.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAYEAAAAAigAACEAAACAAAAAAAAAAAAEAAAEAAAAAAg=</HashCode>
+      <FileName>Assets\Scripts\Controllers\VaultingController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IInitialize">
+    <Position X="18.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Interfaces\IInitialize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.Action">
+    <Position X="21" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAIAAAAAAAAAAAAAAAAAgAAAABQAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Actions\Action.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.ActionVaultObstacle">
+    <Position X="19.25" Y="13.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Actions\ActionVaultObstacle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.ActionVaultReach">
+    <Position X="22" Y="13.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Actions\ActionVaultReach.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.VaultAction">
+    <Position X="7.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BQQAACAAAgAAAIEAAAAAAAAAAAAAAAAgAAhUAQAAAgI=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Actions\Vaulting\VaultAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.VaultClimbLedge">
+    <Position X="11.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAgAAEAAAAAAAAAAAAAAAAAAAgEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Actions\Vaulting\VaultClimbLedge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.VaultDown">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAEAAAAAAAAAAAAAAAAAAAgIAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Actions\Vaulting\VaultDown.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.VaultJumpPrediction">
+    <Position X="5" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAgAAAABAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Actions\Vaulting\VaultJumpPrediction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.VaultObstacle">
+    <Position X="7.25" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAEAAAAAAIAQAAAAAAAAAAgECAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Actions\Vaulting\VaultObstacle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.VaultOver">
+    <Position X="9.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Actions\Vaulting\VaultOver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.VaultReach">
+    <Position X="14" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAAAAAAAUAAAAAAIAQAAAAAAAAAAgEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Actions\Vaulting\VaultReach.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.VaultSlide">
+    <Position X="2.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAEAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Actions\Vaulting\VaultSlide.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.DrawLine">
+    <Position X="20.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Climbing\DrawLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.DrawLineIndividual">
+    <Position X="22" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAYAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Climbing\DrawLineIndividual.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.HandlePointConnection">
+    <Position X="21" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAoQAAAAAFEAAAQAAAAAAAAAChAAEAAIgBAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Climbing\HandlePointConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.Connection">
+    <Position X="25.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Climbing\HandlePointConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.HandlePoints">
+    <Position X="23.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQACAAACAAgAAIIAIAAAEAAAAAIAAAAAAEBRCAAACA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Climbing\HandlePoints.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.Neighbour">
+    <Position X="23.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Climbing\Point.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.Point">
+    <Position X="17.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAABAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Climbing\Point.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Climbing.SwitchCameras">
+    <Position X="19" Y="3.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Climbing.SwitchCameras.CameraType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Helpers\Camera\SwitchCameras.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAACAAAAAAAAAAAgAAAAQAAAABAAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Helpers\Camera\SwitchCameras.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="@PlayerControls" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="12" Width="3" />
+    <NestedTypes>
+      <Struct Name="@PlayerControls.CameraActions" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Helpers\Player\PlayerControls.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="@PlayerControls.PlayerActions" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Helpers\Player\PlayerControls.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="@PlayerControls.GameManagerActions" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Helpers\Player\PlayerControls.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ABASAAAAACAAAJAAAADECxAFACAAQGCEAMEgUEBQAAA=</HashCode>
+      <FileName>Assets\Scripts\Helpers\Player\PlayerControls.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="ICameraActions">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Interfaces\ICameraActions.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IGameManagerActions">
+    <Position X="10.25" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Interfaces\IGameManagerActions.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IPlayerActions">
+    <Position X="10.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAQAAAAACA=</HashCode>
+      <FileName>Assets\Scripts\Interfaces\IPlayerActions.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Climbing.MovementState">
+    <Position X="19" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\MovementCharacterController.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Climbing.VaultActions">
+    <Position X="17" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACjAAAAAAAABAAAAAAAAAAAAAAAAAAEAAAAAAAAABBA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\VaultingController.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Climbing.PointType">
+    <Position X="21" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAEAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\Mechanics\Climbing\Point.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

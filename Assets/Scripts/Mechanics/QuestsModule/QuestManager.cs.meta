@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 21a56e7a4cee5814f9a752a5a20e16a5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - data: {instanceID: 0}
+  - mainQuestTrigger: {fileID: 9120517631251280822, guid: 559194a72f33c2540b5f9c4de4d6f0e1,
+      type: 3}
+  - achivementsData: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

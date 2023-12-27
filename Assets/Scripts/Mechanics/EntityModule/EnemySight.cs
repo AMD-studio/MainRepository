@@ -30,6 +30,7 @@ namespace Assets.Scripts.Mechanics.EntityModule
         public bool IsDead = false;
         public GameObject prefab;
         public GameObject DiePrefab;
+        private Outline outline;
 
         private void Awake()
         {
@@ -38,6 +39,8 @@ namespace Assets.Scripts.Mechanics.EntityModule
             sphereCollider = GetComponent<SphereCollider>();
             animator = GetComponent<Animator>();
             LastKnowSighting = thisTransform.position;
+            outline = GetComponent<Outline>();
+            outline.enabled = false;
         }
 
         private void Update()
@@ -72,12 +75,18 @@ namespace Assets.Scripts.Mechanics.EntityModule
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.CompareTag("Arrow"))
+            if (collision.gameObject.CompareTag("DeadZone"))
+            {
+                health = 0;
+            }
+                
+
+                if (collision.gameObject.CompareTag("Arrow"))
             {   
                 if (collision.gameObject.TryGetComponent<Arrow>(out var arrow))
                 {
                     float damage = arrow.GetDamage();
-
+                    outline.enabled = true;
                     Debug.Log($"Applying damage {damage} to target.");
 
                     health -= damage;
@@ -91,6 +100,7 @@ namespace Assets.Scripts.Mechanics.EntityModule
             {
                 Debug.LogWarning("Collision with object not tagged as 'Arrow'.");
             }
+            outline.enabled = false;
         }
 
         private void Die()
@@ -99,8 +109,12 @@ namespace Assets.Scripts.Mechanics.EntityModule
             {
                 Destroy(prefab);
                 Instantiate(DiePrefab, thisTransform.position, thisTransform.rotation);
+
+                if (DiePrefab.TryGetComponent<Rigidbody>(out var rigidbody)) 
+                    rigidbody.AddForce(-DiePrefab.transform.forward * 15f, ForceMode.Impulse);
             }
         }
+
 
         private void UpdateAnimatorSpeed()
         {

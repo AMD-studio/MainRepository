@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,27 @@ namespace Climbing
         [SerializeField] private float FeetRayLength = 0.6f;
         [SerializeField] private float FindLedgeNumRays = 7;
         [SerializeField] private float DropLedgeNumRays = 8;
+
+
+        public GameObject GetNearestObject<T>(T[] objects, Func<T, float> distanceFunc)
+        {
+            GameObject nearestObject = null;
+            float nearestDistance = float.MaxValue;
+
+            foreach (T obj in objects)
+            {
+                float distance = distanceFunc(obj);
+
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestObject = obj as GameObject;
+                }
+            }
+
+            return nearestObject;
+        }
+
 
         public bool FindLedgeCollision(out RaycastHit hit)
         {

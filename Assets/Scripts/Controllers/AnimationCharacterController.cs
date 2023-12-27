@@ -63,7 +63,7 @@ namespace Climbing
 
         public void CharacterPullString(bool pull)
         {
-            animator.SetBool("pull", pull);
+            animator.SetBool("pullString", pull);
         }
 
         public void CharacterFireArrow()

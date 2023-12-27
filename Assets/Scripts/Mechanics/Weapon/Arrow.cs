@@ -11,7 +11,6 @@ public class Arrow : MonoBehaviour
     public float destroyTime = 20f;
     AudioSource arrowAudio;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -19,8 +18,9 @@ public class Arrow : MonoBehaviour
         arrowAudio = GetComponent<AudioSource>();
         gameObject.tag = "Arrow";
 
-        Destroy(this.gameObject, destroyTime);
+        Destroy(gameObject, destroyTime);
     }
+
     void Update()
     {
         if(!disableRotation)
@@ -29,7 +29,7 @@ public class Arrow : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag != "Player")
+        if(!collision.gameObject.CompareTag("Player"))
         {
             arrowAudio.Play();
             disableRotation = true;
@@ -40,6 +40,6 @@ public class Arrow : MonoBehaviour
 
     internal float GetDamage()
     {
-        return 100f;
+        return 50f;
     }
 }

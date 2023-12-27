@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.Mechanics.Weapon;
 using UnityEngine;
 
-public class Bow : MonoBehaviour
+public class Bow : Weapon
 {
     [System.Serializable]
     public class BowSettings
@@ -33,7 +32,6 @@ public class Bow : MonoBehaviour
         public AudioClip drawArrowAudio;
     }
 
-    [SerializeField]
     public BowSettings bowSettings;
 
     [Header("Crosshair Settings")]
@@ -47,13 +45,11 @@ public class Bow : MonoBehaviour
 
     AudioSource bowAudio;
 
-    // Start is called before the first frame update
     void Start()
     {
         bowAudio = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -84,22 +80,20 @@ public class Bow : MonoBehaviour
 
     public void EquipBow()
     {
-        this.transform.position = bowSettings.EquipPos.position;
-        this.transform.rotation = bowSettings.EquipPos.rotation;
-        this.transform.parent = bowSettings.EquipParent;
+        transform.SetPositionAndRotation(bowSettings.EquipPos.position, bowSettings.EquipPos.rotation);
+        transform.parent = bowSettings.EquipParent;
     }
 
     public void UnEquipBow()
     {
-        this.transform.position = bowSettings.UnEquipPos.position;
-        this.transform.rotation = bowSettings.UnEquipPos.rotation;
-        this.transform.parent = bowSettings.UnEquipParent;
+        transform.SetPositionAndRotation(bowSettings.UnEquipPos.position, bowSettings.UnEquipPos.rotation);
+        transform.parent = bowSettings.UnEquipParent;
     }
 
     public void ShowCrosshair(Vector3 crosshairPos)
     {
         if (!currentCrossHair)
-            currentCrossHair = Instantiate(crossHairPrefab) as GameObject;
+            currentCrossHair = Instantiate(crossHairPrefab);
 
         currentCrossHair.transform.position = crosshairPos;
         currentCrossHair.transform.LookAt(Camera.main.transform);
@@ -116,8 +110,23 @@ public class Bow : MonoBehaviour
         bowAudio.PlayOneShot(bowSettings.pullStringAudio);
     }
 
-    public void Fire(Vector3 direction)
+    public override void PickWeapon()
     {
+        // Implement logic for picking the bow as a weapon
+        // For example, play a sound or show a visual effect
+        Debug.Log("Picking the bow");
+    }
+
+    public override void DisableWeapon()
+    {
+        // Implement logic for disabling the bow as a weapon
+        // For example, play a sound or hide a visual effect
+        Debug.Log("Disabling the bow");
+    }
+
+    public override void Fire(Vector3 direction)
+    {
+        // Implement the specific firing logic for the bow
         if (bowSettings.arrowCount < 1)
             return;
 
@@ -128,10 +137,8 @@ public class Bow : MonoBehaviour
             bowSettings.arrowPos.position,
             bowSettings.arrowPos.rotation);
 
-        // Применяем силу в переданном направлении
         currentArrow.AddForce(direction * bowSettings.arrowForce, ForceMode.Force);
 
         bowSettings.arrowCount -= 1;
     }
-
 }

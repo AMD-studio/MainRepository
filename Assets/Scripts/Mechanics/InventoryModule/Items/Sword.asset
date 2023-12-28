@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   sprite: {fileID: 291548493, guid: 383aef37898fa624db3efdbee6c0df52, type: 3}
+  itemTag: 0
+  equipmentPrefab: {fileID: 1829369079288647361, guid: 1e39776566db5c646acca89543fd9a0d,
+    type: 3}

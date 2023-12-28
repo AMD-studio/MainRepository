@@ -13,6 +13,7 @@ TagManager:
   - Item
   - Arrow
   - Enemy
+  - DeadZone
   layers:
   - Default
   - TransparentFX

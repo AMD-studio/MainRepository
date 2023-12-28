@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Inventory : MonoBehaviour
 {
@@ -22,16 +23,55 @@ public class Inventory : MonoBehaviour
     [SerializeField] Item[] items;
 
     [Header("Debug")]
-    [SerializeField] Button giveItemBtn;
+    //[SerializeField] Button giveItemBtn;
+
+    private int _selectedSlot = 0;
+
+    public int SelectedSlot
+    {
+        get { return _selectedSlot; }
+        set
+        {
+            
+            var newValue = value;
+            if (value > hotbarSlots.Length - 1)
+            {
+                newValue = 0;
+            }
+            else if (value < 0)
+            {
+                newValue = hotbarSlots.Length - 1;
+            }
+            hotbarSlots[_selectedSlot].isSelected = false;
+            hotbarSlots[newValue].isSelected = true;
+            _selectedSlot = newValue;
+        }
+    }
+
+    public Inventory()
+    {
+        SelectedSlot = 0;
+    }
 
     void Awake()
     {
         Singleton = this;
-        giveItemBtn.onClick.AddListener( delegate { SpawnInventoryItem(); } );
+        //giveItemBtn.onClick.AddListener( delegate { SpawnInventoryItem(); } );
+        SelectedSlot = 0;
     }
 
     void Update()
     {
+        if (Input.mouseScrollDelta.y > 0)
+        {
+            SelectedSlot--;
+        }
+        else if(Input.mouseScrollDelta.y < 0)
+        {
+            SelectedSlot++;
+            Debug.Log($"Current Slot {_selectedSlot}");
+        }
+
         if(carriedItem == null) return;
 
         carriedItem.transform.position = Mouse.current.position.ReadValue();
@@ -39,7 +79,7 @@ public class Inventory : MonoBehaviour
 
     public void SetCarriedItem(InventoryItem item)
     {
-        if(carriedItem != null)
+        if (carriedItem != null)
         {
             if(item.activeSlot.myTag != SlotTag.None && item.activeSlot.myTag != carriedItem.myItem.itemTag) return;
             item.activeSlot.SetItem(carriedItem);
@@ -88,6 +128,20 @@ public class Inventory : MonoBehaviour
         {
             // Check if the slot is empty
             if(inventorySlots[i].myItem == null)
+            {
+                Instantiate(itemPrefab, inventorySlots[i].transform).Initialize(_item, inventorySlots[i]);
+                break;
+            }
+        }
+    }
+
+    public void PickItem(Item item)
+    {
+        Item _item = item;
+
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            if (inventorySlots[i].myItem == null)
             {
                 Instantiate(itemPrefab, inventorySlots[i].transform).Initialize(_item, inventorySlots[i]);
                 break;
